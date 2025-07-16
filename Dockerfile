@@ -36,19 +36,7 @@ RUN mkdir -p /app/data /app/logs && \
     chmod 755 /app/data /app/logs
 
 # 确保模型文件存在，如果不存在则下载
-RUN python -c "
-import os
-from ultralytics import YOLO
-if not os.path.exists('weights.pt'):
-    print('📥 下载YOLOv8模型...')
-    model = YOLO('yolov8n.pt')
-    import shutil
-    if os.path.exists('yolov8n.pt'):
-        shutil.copy('yolov8n.pt', 'weights.pt')
-        print('✅ 模型文件已准备完成')
-else:
-    print('✅ 模型文件已存在')
-"
+RUN python setup_model.py
 
 # 暴露端口
 EXPOSE 10000
