@@ -1,14 +1,15 @@
 """
 海洋垃圾检测 Streamlit 前端应用
 """
+import os
+import io
+from datetime import datetime, timedelta
+
 import streamlit as st
 import requests
 import pandas as pd
 import plotly.express as px
-import plotly.graph_objects as go
 from PIL import Image
-from datetime import datetime, timedelta
-import io
 
 # 页面配置
 st.set_page_config(
@@ -19,7 +20,6 @@ st.set_page_config(
 )
 
 # API基础URL - 支持本地开发和生产环境
-import os
 API_BASE_URL = os.getenv("API_BASE_URL", st.secrets.get("API_BASE_URL", "http://localhost:8000"))
 
 # 应用标题和描述
