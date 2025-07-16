@@ -3,7 +3,7 @@
 """
 import os
 import io
-from datetime import datetime, timedelta
+from datetime import datetime
 
 import streamlit as st
 import requests
@@ -109,13 +109,13 @@ if page == "🔍 垃圾检测":
                     
                     # 准备API请求
                     api_url = f"{API_BASE_URL}/api/predict"
-                    files = {"file": uploaded_file.getvalue()}
                     
                     progress_bar.progress(50)
                     status_text.text("正在进行AI分析...")
                     
                     # 发送请求到后端API
-                    response = requests.post(api_url, files={"file": uploaded_file}, timeout=30)
+                    files = {"file": (uploaded_file.name, uploaded_file.getvalue(), uploaded_file.type)}
+                    response = requests.post(api_url, files=files, timeout=30)
                     
                     progress_bar.progress(75)
                     status_text.text("正在处理结果...")
