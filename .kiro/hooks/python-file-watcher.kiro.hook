@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "name": "Python File Monitor",
+  "description": "Watches all Python files in the project for changes and triggers analysis",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "**/*.py"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "A Python file has been modified. Please analyze the changes and provide feedback on code quality, potential issues, and suggestions for improvement."
+  }
+}

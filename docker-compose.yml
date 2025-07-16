@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  ocean-trash-api:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: ocean-trash-detection-api
+    ports:
+      - "10000:10000"
+    environment:
+      - PYTHONPATH=/app
+      - PORT=10000
+    volumes:
+      # 持久化数据库
+      - ./data:/app/data
+      # 持久化日志
+      - ./logs:/app/logs
+      # 如果需要挂载模型文件（可选）
+      - ./weights.pt:/app/weights.pt:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:10000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+        reservations:
+          memory: 1G
+
+volumes:
+  data:
+    driver: local
+  logs:
+    driver: local

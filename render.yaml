@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: ocean-trash-detection-api
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: starter
+    region: oregon
+    branch: main
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: PYTHONUNBUFFERED
+        value: 1
+      - key: PYTHONDONTWRITEBYTECODE
+        value: 1
+    disk:
+      name: ocean-trash-data
+      mountPath: /app/data
+      sizeGB: 1
